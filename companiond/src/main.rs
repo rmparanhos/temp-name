@@ -278,6 +278,16 @@ fn ipc_loop(app: AppHandle) {
     }
 }
 
+/// Whether the approval popup should grab keyboard focus when it appears.
+/// Off by default so it doesn't interrupt what you're typing; opt in with
+/// `CHRIS_FOCUS_POPUP=1` to use the Enter/Esc shortcuts without clicking first.
+fn focus_popup() -> bool {
+    matches!(
+        std::env::var("CHRIS_FOCUS_POPUP").ok().as_deref(),
+        Some("1") | Some("true") | Some("yes")
+    )
+}
+
 /// Shows the request (blob + popup) and waits for the decision (or timeout = Deny).
 fn handle_request(app: &AppHandle, req: &chris_core::ApprovalRequest) -> Decision {
     // blob -> alert
@@ -296,12 +306,16 @@ fn handle_request(app: &AppHandle, req: &chris_core::ApprovalRequest) -> Decisio
             "risk": format!("{:?}", req.risk).to_lowercase(),
         }),
     );
-    // place it next to the blob, show it and focus it so it's easy to act on
-    // (click or keyboard: Enter = allow, Esc = deny)
+    // place it next to the blob and show it WITHOUT stealing focus, so a popup
+    // never interrupts what you're typing. You can still click Allow/Deny.
+    // Set CHRIS_FOCUS_POPUP=1 if you'd rather it grab focus so the keyboard
+    // shortcuts (Enter = allow, Esc = deny) work without clicking first.
     position_near_blob(app, "popup");
     if let Some(win) = app.get_webview_window("popup") {
         let _ = win.show();
-        let _ = win.set_focus();
+        if focus_popup() {
+            let _ = win.set_focus();
+        }
     }
 
     // register the decision channel and wait
