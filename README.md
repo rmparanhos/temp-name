@@ -54,17 +54,16 @@ tools, WebView2) and compile the project.
 **Windows**
 
 1. On this GitHub page: **`Code` → `Download ZIP`**, then extract.
-2. Open the `scripts` folder and **double-click `setup.bat`** (accept the
-   Windows prompts; the first build takes a while). It installs everything it
-   needs — including the **C++ Build Tools + the linker** — compiles, and then
+2. Open the `scripts` folder and **double-click `setup.bat`** (the first build
+   takes a while). It installs everything it needs, compiles, and then
    **launches CHRIS** automatically.
 3. Next time, just **double-click `run.bat`** to start it again (keep that
    window open).
 
-> If `setup.bat` ever stops saying the **linker (`link.exe`)** is missing,
-> follow the on-screen note (Visual Studio Installer → *Modify* → **Desktop
-> development with C++**), then run it again. It may need
-> *Run as administrator*.
+> **No admin needed.** `setup.bat` uses the MSVC linker if you already have it;
+> otherwise it falls back to the **GNU toolchain + a portable MinGW** compiler
+> downloaded into your user folder — so it works on locked-down machines without
+> the Visual Studio C++ Build Tools.
 
 **Linux / macOS**
 
