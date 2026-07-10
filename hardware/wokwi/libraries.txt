@@ -1,0 +1,3 @@
+# Libraries Wokwi fetches automatically for the sketch.
+Adafruit GFX Library
+Adafruit ILI9341

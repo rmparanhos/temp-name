@@ -1,0 +1,28 @@
+{
+  "version": 1,
+  "author": "CHRIS",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    { "type": "wokwi-ili9341", "id": "lcd", "top": -120, "left": 210, "attrs": {} },
+    { "type": "wokwi-pushbutton", "id": "btnA", "top": 160, "left": -160,
+      "attrs": { "color": "green", "label": "Allow" } },
+    { "type": "wokwi-pushbutton", "id": "btnB", "top": 260, "left": -160,
+      "attrs": { "color": "red", "label": "Deny" } }
+  ],
+  "connections": [
+    [ "lcd:VCC", "esp:3V3", "red", [] ],
+    [ "lcd:LED", "esp:3V3", "red", [] ],
+    [ "lcd:GND", "esp:GND.1", "black", [] ],
+    [ "lcd:CS", "esp:D5", "orange", [] ],
+    [ "lcd:RST", "esp:D4", "green", [] ],
+    [ "lcd:D/C", "esp:D2", "blue", [] ],
+    [ "lcd:MOSI", "esp:D23", "purple", [] ],
+    [ "lcd:SCK", "esp:D18", "yellow", [] ],
+    [ "lcd:MISO", "esp:D19", "gray", [] ],
+    [ "btnA:1.l", "esp:D32", "green", [] ],
+    [ "btnA:2.l", "esp:GND.2", "black", [] ],
+    [ "btnB:1.l", "esp:D33", "red", [] ],
+    [ "btnB:2.l", "esp:GND.3", "black", [] ]
+  ]
+}
